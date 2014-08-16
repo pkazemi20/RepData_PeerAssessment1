@@ -1,10 +1,11 @@
-
 Reproducible Research: Peer Assessment 1
 ========================================================
 Loading and preprocessing the data
 
 ```{r}
-read.csv("activity.csv", header=T)->d
+unz("activity.zip", filename = "activity.csv")->activity
+
+read.csv(activity, header=T)->d
 ```
 
 Calculate and report the mean and median total number of steps taken per day
