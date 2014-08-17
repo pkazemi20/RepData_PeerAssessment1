@@ -25,7 +25,7 @@ hist(dd, xlab = "total number of steps taken per day",breaks=30,main="total numb
 
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r}
+```{r fig.bg='green'}
 tapply(d$steps,d$interval,mean,na.rm=T)->b
 subset(d,date=="2012-10-01",select=interval)->int
 data.frame(intervals = int, mean=b)->data
@@ -81,8 +81,9 @@ Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minut
 ```{r}
 aggregate(steps ~ interval + daytype, d, mean)->new
 names(new)[3] <- "mean"
- 
-plot(new$interval[new$daytype=="weekday"],new$mean[new$daytype=="weekday"],type = "l",xlab="Interval",ylab="Average number of steps", main="Average steps per 5-minute interval for weekday")
-plot(new$interval[new$daytype=="weekend"],new$mean[new$daytype=="weekend"],type = "l",xlab="Interval",ylab="Average number of steps",main="Average steps per 5-minute interval for weekend")
 
+library(ggplot2)
+ggplot(new) + aes(x = interval, y = mean) + facet_grid(daytype ~ 
+    .) + geom_line() + labs(title = "Time Series Plot of Average Number of Steps Per Interval", 
+    y = "Number of steps")
 ```
