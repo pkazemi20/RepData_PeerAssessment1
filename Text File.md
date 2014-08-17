@@ -16,10 +16,10 @@ print("median is:");median(dd,na.rm=T)
 ```
 
 Make a histogram of the total number of steps taken each day
-```{r }
-
-hist(dd, xlab = "total number of steps taken per day",breaks=30,main="total number of steps taken each day",bg = "transparent")
+```{r}
+hist(dd, xlab = "total number of steps taken per day",breaks=30,main="total number of steps taken each day")
 ```
+![plot of chunk total number of steps taken each day](figure/Rplot01.png) 
 
 ## What is the average daily activity pattern?
 
@@ -30,9 +30,8 @@ tapply(d$steps,d$interval,mean,na.rm=T)->b
 subset(d,date=="2012-10-01",select=interval)->int
 data.frame(intervals = int, mean=b)->data
 plot(b,type = "l",xlab="Interval",ylab="Average number of steps",main="Average steps per 5-minute interval")
-
 ```
-
+![plot of chunk Average steps per 5-minute interval](figure/Rplot02.png) 
 
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -65,6 +64,8 @@ hist(bb, xlab = "total number of steps taken per day",breaks=30,main="Number of 
 print("mean is:");mean(bb,na.rm=T)
 print("median is:");median(bb,na.rm=T)
 ```
+![plot of chunk Number of steps per day (estimated missing data)](figure/Rplot03.png) 
+
 They are roughly the same,  there is no impact of replacing missing data on the estimates of the total daily number of steps
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -81,8 +82,8 @@ Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minut
 ```{r}
 aggregate(steps ~ interval + daytype, d, mean)->new
 names(new)[3] <- "mean"
- 
 plot(new$interval[new$daytype=="weekday"],new$mean[new$daytype=="weekday"],type = "l",xlab="Interval",ylab="Average number of steps", main="Average steps per 5-minute interval for weekday")
 plot(new$interval[new$daytype=="weekend"],new$mean[new$daytype=="weekend"],type = "l",xlab="Interval",ylab="Average number of steps",main="Average steps per 5-minute interval for weekend")
-
 ```
+![plot of chunk Average steps per 5-minute interval for weekday](figure/Rplot04.png) 
+![plot of chunk Average steps per 5-minute interval for weekend](figure/Rplot05.png) 
